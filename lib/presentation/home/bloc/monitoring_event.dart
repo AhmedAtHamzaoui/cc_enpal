@@ -24,3 +24,10 @@ class ChangeDate extends MonitoringEvent {
   @override
   List<Object> get props => [type, newDate];
 }
+
+class ClearLocalData extends MonitoringEvent {
+  ClearLocalData();
+
+  @override
+  List<Object> get props => [];
+}

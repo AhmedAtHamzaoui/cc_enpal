@@ -1,12 +1,11 @@
 import 'package:cc_enpal/data/models/data_model.dart';
-import 'package:cc_enpal/presentation/home/bloc/home_bloc.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EnergyChart extends StatefulWidget {
-  List<DataModel> data;
-  EnergyChart({super.key, required this.data});
+  final List<DataModel> data;
+  const EnergyChart({super.key, required this.data});
 
   @override
   State<EnergyChart> createState() => _EnergyChartState();
@@ -41,7 +40,7 @@ class _EnergyChartState extends State<EnergyChart> {
 
               return LineTooltipItem(
                 "$timeLabel\n${powerInKW.toStringAsFixed(2)} kW",
-                TextStyle(color: Colors.white, fontSize: 14),
+                const TextStyle(color: Colors.white, fontSize: 14),
               );
             }).toList();
           },
@@ -54,7 +53,7 @@ class _EnergyChartState extends State<EnergyChart> {
               showTitles: true,
               getTitlesWidget: (value, meta) {
                 return Text("${value.toInt()} W",
-                    style: TextStyle(fontSize: 8, color: Colors.black));
+                    style: const TextStyle(fontSize: 8));
               },
               reservedSize: 40,
             ),
@@ -67,7 +66,7 @@ class _EnergyChartState extends State<EnergyChart> {
                 int index = value.toInt();
                 if (index >= 0 && index < timeLabels.length) {
                   return Text(timeLabels[index],
-                      style: TextStyle(fontSize: 10, color: Colors.black));
+                      style: const TextStyle(fontSize: 10));
                 }
                 return Container();
               },
@@ -76,7 +75,9 @@ class _EnergyChartState extends State<EnergyChart> {
           ),
           topTitles:
               const AxisTitles(sideTitles: SideTitles(showTitles: false))),
-      gridData: FlGridData(show: false),
+      gridData: const FlGridData(
+        show: false,
+      ),
       borderData: FlBorderData(show: true),
       minX: 0,
       maxX: widget.data.length.toDouble(), // Allow scrolling beyond the dataset
@@ -95,16 +96,25 @@ class _EnergyChartState extends State<EnergyChart> {
           spots: getChartData(),
           isCurved: true,
           curveSmoothness: 0.1,
-          color: Colors.orange,
+          gradient: LinearGradient(colors: [
+            Theme.of(context).hoverColor,
+            Theme.of(context).shadowColor,
+          ]),
+          //color: Colors.orange,
           barWidth: 3,
           aboveBarData: BarAreaData(show: true),
-          belowBarData:
-              BarAreaData(show: true, color: Colors.orange.withOpacity(0.3)),
-          dotData: FlDotData(show: false),
+          belowBarData: BarAreaData(
+            show: true,
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).hoverColor,
+                Theme.of(context).shadowColor,
+              ].map((color) => color.withValues(alpha: 0.3)).toList(),
+            ),
+          ),
+          dotData: const FlDotData(show: false),
         ),
       ],
-      // Enable zooming and panning
-      extraLinesData: ExtraLinesData(),
     );
   }
 
@@ -112,15 +122,15 @@ class _EnergyChartState extends State<EnergyChart> {
   Widget build(BuildContext context) {
     List<String> timeLabels = getTimeLabels();
     return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-            width: 2000, // Large width to allow horizontal scrolling
-         //   height: MediaQuery.of(context).size.height * 0.5,
-            child: LineChart(chartDataConfig(timeLabels)),
-          ),
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: SizedBox(
+          width: 2000, // Large width to allow horizontal scrolling
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: LineChart(chartDataConfig(timeLabels)),
         ),
-      );
+      ),
+    );
   }
 }

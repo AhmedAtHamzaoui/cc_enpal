@@ -19,7 +19,8 @@ class MonitoringWidget extends StatelessWidget {
       lastDate: DateTime.now(),
     );
 
-    if (picked != null && picked != initialDate) {
+    if (picked != null &&
+        DateFormat('yyyy-MM-dd').format(picked) != initialDate) {
       bloc.add(ChangeDate(
           type: type, newDate: DateFormat('yyyy-MM-dd').format(picked)));
     }
@@ -58,10 +59,8 @@ class MonitoringWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: EnergyChart(
-                  data: state.solarEnergy,
-                ),
+              EnergyChart(
+                data: state.solarEnergy,
               ),
             ],
           );

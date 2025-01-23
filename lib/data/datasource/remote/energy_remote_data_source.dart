@@ -15,7 +15,6 @@ class EnergyRemoteDataSourceImpl implements EnergyRemoteDataSource {
       final response = await dio
           .get('http://10.0.2.2:3000/monitoring?date=$date&type=$type');
 
-      print('here url : http://10.0.2.2:3000/monitoring?date=$date&type=$type');
       List<DataModel> data = (response.data as List)
           .map((item) => DataModel.fromJson(item))
           .toList();

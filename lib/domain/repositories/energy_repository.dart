@@ -5,4 +5,6 @@ import 'package:fpdart/fpdart.dart';
 abstract interface class EnergyRepository {
   Future<Either<Failure, List<DataModel>>> getSolarEnergy(
       {required String date, required String type});
+
+  Either<Failure, Unit> clearAllLocalData();
 }

@@ -1,4 +1,6 @@
+import 'package:cc_enpal/core/usecase/usecase.dart';
 import 'package:cc_enpal/data/models/data_model.dart';
+import 'package:cc_enpal/domain/usecase/clear_local_data.dart';
 import 'package:cc_enpal/domain/usecase/get_solar_energy.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,17 +11,22 @@ part 'monitoring_state.dart';
 
 class MonitoringBloc extends Bloc<MonitoringEvent, MonitoringState> {
   final GetSolarEnergy _getSolarEnergy;
+  final ClearLocalDataUseCase _clearLocalData;
   final Map<String, String> _selectedDates = {
     "solar": DateFormat('yyyy-MM-dd').format(DateTime.now()),
     "house": DateFormat('yyyy-MM-dd').format(DateTime.now()),
     "battery": DateFormat('yyyy-MM-dd').format(DateTime.now()),
   };
 
-  MonitoringBloc({required GetSolarEnergy getSolarEnergy})
+  MonitoringBloc(
+      {required GetSolarEnergy getSolarEnergy,
+      required ClearLocalDataUseCase clearLocalData})
       : _getSolarEnergy = getSolarEnergy,
+        _clearLocalData = clearLocalData,
         super(MonitoringInitial()) {
     on<FetchMonitoringData>(_onFetchSolarEnergy);
     on<ChangeDate>(_onChangeDate);
+    on<ClearLocalData>(_onClearLocalData);
   }
 
   void _onFetchSolarEnergy(
@@ -46,6 +53,13 @@ class MonitoringBloc extends Bloc<MonitoringEvent, MonitoringState> {
   ) async {
     _selectedDates[event.type] = event.newDate; // Update selected date
     add(FetchMonitoringData(type: event.type, date: event.newDate));
+  }
+
+  void _onClearLocalData(
+    ClearLocalData event,
+    Emitter<MonitoringState> emit,
+  ) async {
+    await _clearLocalData(NoParams());
   }
 
   String getSelectedDate(String type) => _selectedDates[type]!;
