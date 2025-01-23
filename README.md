@@ -22,14 +22,16 @@ Dart SDK Version: 3.6.1
 the project supports Dart 3.5.3 or higher, but does not enforce a specific Flutter version.
 
 
-1. Architecture Overview
+1. Architecture Overview :
+
 - Clean Architecture: Separates concerns into Presentation, Domain, and Data layers.
 - State Management: Uses BLoC (Business Logic Component) for efficient state management.
 - Dependency Injection: Managed via GetIt, ensuring loose coupling between layers.
 - Local Storage (Caching): Uses Hive, a lightweight and fast key-value database.
 - Networking: Uses Dio, a powerful HTTP client for making API requests.
 
-3. Folder Structure
+2. Folder Structure :
+
 The project follows a modular and scalable folder structure:
 
 lib/
