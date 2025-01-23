@@ -48,15 +48,6 @@ class _HomePageState extends State<HomePage> {
                 ),
                 title: const Text('Dashboard'),
                 actions: [
-                  IconButton(
-                    onPressed: () {
-                      context.read<MonitoringBloc>().add(ClearLocalData());
-                    },
-                    icon: const Text(
-                      "Clear Local Data",
-                      style: TextStyle(fontSize: 10),
-                    ),
-                  ),
                   BlocBuilder<ThemeBloc, bool>(builder: (context, state) {
                     return Switch(
                       value: state,
@@ -73,7 +64,16 @@ class _HomePageState extends State<HomePage> {
                   MonitoringWidget(type: "house"),
                   MonitoringWidget(type: "battery"),
                 ],
-              ))),
+              ),
+              floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    context.read<MonitoringBloc>().add(ClearLocalData());
+                  },
+                  child: const Text(
+                    "Clear Local Data",
+                    style: TextStyle(fontSize: 10),
+                    textAlign: TextAlign.center,
+                  )))),
     );
   }
 }
