@@ -1,5 +1,5 @@
 import 'package:cc_enpal/core/usecase/usecase.dart';
-import 'package:cc_enpal/data/models/data_model.dart';
+import 'package:cc_enpal/domain/entities/data.dart';
 import 'package:cc_enpal/domain/usecase/clear_local_data.dart';
 import 'package:cc_enpal/domain/usecase/get_solar_energy.dart';
 import 'package:equatable/equatable.dart';

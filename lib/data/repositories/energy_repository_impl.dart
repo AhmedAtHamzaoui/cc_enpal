@@ -3,7 +3,7 @@ import 'package:cc_enpal/core/error/failures.dart';
 import 'package:cc_enpal/core/network/connection_checker.dart';
 import 'package:cc_enpal/data/datasource/local/energy_local_data_source.dart';
 import 'package:cc_enpal/data/datasource/remote/energy_remote_data_source.dart';
-import 'package:cc_enpal/data/models/data_model.dart';
+import 'package:cc_enpal/domain/entities/data.dart';
 import 'package:cc_enpal/domain/repositories/energy_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
@@ -16,7 +16,7 @@ class EnergyRepositoryImpl implements EnergyRepository {
       this.connectionChecker);
 
   @override
-  Future<Either<Failure, List<DataModel>>> getSolarEnergy(
+  Future<Either<Failure, List<Data>>> getSolarEnergy(
       {required String date, required String type}) async {
     try {
       if (!await connectionChecker.isConnected) {

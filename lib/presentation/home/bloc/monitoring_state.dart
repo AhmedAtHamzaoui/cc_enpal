@@ -20,7 +20,7 @@ class MonitoringLoading extends MonitoringState {
 class MonitoringLoaded extends MonitoringState {
   final String type;
   final String date;
-  final List<DataModel> solarEnergy;
+  final List<Data> solarEnergy;
 
   MonitoringLoaded(
       {required this.type, required this.date, required this.solarEnergy});

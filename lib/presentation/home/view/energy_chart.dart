@@ -1,10 +1,10 @@
-import 'package:cc_enpal/data/models/data_model.dart';
+import 'package:cc_enpal/domain/entities/data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class EnergyChart extends StatefulWidget {
-  final List<DataModel> data;
+  final List<Data> data;
   const EnergyChart({super.key, required this.data});
 
   @override
